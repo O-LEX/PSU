@@ -29,15 +29,6 @@ for i in range(n):
     L = cv2.subtract(gpA[i], GE)
     lpA.append(L)
 
-# 画像の表示
-# cv2.imshow('Original Image', image)
-# for i in range(n):
-#     cv2.imshow(f'Gaussian Level {i}', gpA[i])
-#     cv2.imshow(f'Laplacian Level {i}', lpA[i])
-
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
 sigmaColor = 0.07
 sigmaSpace = 5
 scale=0.8
@@ -56,7 +47,3 @@ src = (src * 255).astype(np.uint8)
 cv2.imshow('Output Image', src)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-
-
-
