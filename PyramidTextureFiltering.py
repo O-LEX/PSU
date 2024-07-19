@@ -1,12 +1,22 @@
 import cv2
 import numpy as np
 
+# pyrDownだと0.5倍で固定のため自分で実装
+def downsample(src, scale=0.5):
+    height, width = src.shape[:2]
+    height, width = int(height * scale), int(width * scale)
+    return cv2.resize(src, (width, height), interpolation=cv2.INTER_LINEAR)
+
+# srcをtargetの大きさに合わせる
+def upsample(src, target):
+    height, width = target.shape[:2]
+    return cv2.resize(src, (width, height), interpolation=cv2.INTER_LINEAR)
+
 # 画像のパス
-image_path = "asset/02.png"
+image_path = "asset/01.png"
 
 # 画像の読み込み
 image = cv2.imread(image_path)
-
 image = image.astype(np.float32) / 255.0
 
 # ピラミッドのレベル数
@@ -16,22 +26,22 @@ n = 11
 G = image.copy()
 gpA = [G]
 
+scale = 0.8
 # Gaussianピラミッドの作成
 for i in range(n):
-    G = cv2.pyrDown(G)
+    G = downsample(G,scale)
     gpA.append(G)
 
 # Laplacianピラミッドの作成
 lpA = []
 for i in range(n):
-    GE = cv2.pyrUp(gpA[i+1])
+    GE = upsample(gpA[i+1], gpA[i]) #gpA[i+1]をgpA[i]のサイズに拡大
     GE = cv2.resize(GE, (gpA[i].shape[1], gpA[i].shape[0]))  # サイズを合わせる
     L = cv2.subtract(gpA[i], GE)
     lpA.append(L)
 
-sigmaColor = 0.07
-sigmaSpace = 5
-scale=0.8
+sigmaColor = 0.09
+sigmaSpace = 20
 src = gpA[-1]
 for i in range(n):
     adaptive_sigmaSpace = sigmaSpace * (scale ** (n-i))
