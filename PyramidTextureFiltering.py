@@ -13,14 +13,15 @@ def upsample(src, target):
     return cv2.resize(src, (width, height), interpolation=cv2.INTER_LINEAR)
 
 # 画像のパス
-image_path = "asset/01.png"
+path = "02.png"
+image_path = "input" + "/" + path
 
 # 画像の読み込み
 image = cv2.imread(image_path)
 image = image.astype(np.float32) / 255.0
 
 # ピラミッドのレベル数
-n = 11
+n = 20
 
 # 画像のコピーを作成
 G = image.copy()
@@ -54,6 +55,4 @@ for i in range(n):
     src = cv2.ximgproc.jointBilateralFilter(src, src, d=2*w2+1, sigmaColor=sigmaColor, sigmaSpace=adaptive_sigmaSpace, borderType=cv2.BORDER_REPLICATE)
 
 src = (src * 255).astype(np.uint8)
-cv2.imshow('Output Image', src)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+cv2.imwrite("output" + "/" + path, src)
