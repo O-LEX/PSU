@@ -64,7 +64,7 @@ def main(image_path="asset/02.png", output_path="output.png"):
         raise ValueError("Image not found or the path is incorrect")
     I = I.astype(np.float32) / 255.0
     sigma_s = 5
-    sigma_r = 0.09
+    sigma_r = 0.07
     output = PyramidTextureFilter(I, sigma_s, sigma_r)
     output = (output * 255).astype(np.uint8)
     cv2.imwrite(output_path, output)

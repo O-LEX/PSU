@@ -39,7 +39,7 @@ def PSU(image, n, sigma_s, sigma_r):
     return output
 
 def main():
-    image_path = "asset/01.png"
+    image_path = "asset/02.png"
     image = cv2.imread(image_path)
     n = 5
     sigma_s = 5
