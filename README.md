@@ -3,6 +3,7 @@
 PyramindTextureFiltering.py
 pyramid_texture_filteringのpythonによる追実装です。
 opencv-contrib-pythonを使っています。
+この手法は機械学習などを使わずにテクスチャ除去を行います。
 
 # Input
 ![01](https://github.com/user-attachments/assets/f14a7141-9827-43a0-b883-6d2b268e586a)
